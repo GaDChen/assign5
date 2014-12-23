@@ -1,5 +1,5 @@
-Ball myBall;
-Bar theBar;
+Ball ball;
+Bar board;
 Brick [] bricks;
 
 //Game Status
@@ -12,8 +12,8 @@ final int GAME_LOSE    = 5;
 
 int status;              //Game Status
 int life ;
-int myBallX ;
-int myBallY;
+int ballX ;
+int ballY;
 int brickNum;
 
 
@@ -42,7 +42,7 @@ void setup(){
   
   life = 3;
   
-  theBar = new Bar(80);
+  board = new Bar(80);
   bricks = new Brick[50];
   
   brickMaker(50);  
@@ -73,28 +73,28 @@ void draw(){
      fill(50,50,50);
      bricks[i].display();
       }
-     theBar.move();
-     theBar.display();
-     myBallX = mouseX;
-     myBallY = height - 30;
-     myBall = new Ball(myBallX,myBallY);
-     myBall.display();
+     board.move();
+     board.display();
+     ballX = mouseX;
+     ballY = height - 30;
+     ball = new Ball(ballX,ballY);
+     ball.display();
      drawLife();
       
      break;
     
     case GAME_PLAYING:
-     theBar.move();
-     theBar.display();
+     board.move();
+     board.display();
      for(int i=0;i<bricks.length;i++){
      fill(50,50,50);
      bricks[i].display();
       }
-     myBallX = mouseX;
-     myBallY = height - 30;
+     ballX = mouseX;
+     ballY = height - 30;
      //myBall = new Ball(myBallX,myBallY);
-     myBall.display();
-     myBall.move();
+     ball.display();
+     ball.move();
      drawLife();
      checkBallMissed();
      checkBrickHit();
@@ -139,8 +139,8 @@ void checkBrickHit(){
   for (int i=0; i<bricks.length; i++) {
     Brick brick = bricks[i];
     if (brick!= null && !brick.gone // Check Array isn't empty and brick still exist
-      && bricks[i].brx+brick.len/2 >= myBall.x  && bricks[i].bry-brick.len/2<= myBall.y+myBall.size/2
-      && bricks[i].bry+brick.len/2>= myBall.y && bricks[i].brx-brick.len/2<=myBall.x ) {
+      && bricks[i].brx+brick.len/2 >= ball.x  && bricks[i].bry-brick.len/2<= ball.y+ball.size/2
+      && bricks[i].bry+brick.len/2>= ball.y && bricks[i].brx-brick.len/2<=ball.x ) {
       
       
       removeBrick(brick);
@@ -165,8 +165,8 @@ void drawLife() {
 }
 void checkBallMissed(){
    
-   if(myBallY>height){
-     println(myBallY);
+   if(ballY>height){
+     println(ballY);
        life --;
        status = GAME_PLAYING;
     }
@@ -176,7 +176,7 @@ void checkWin(){
     if(brickNum==50){
        status=GAME_WIN;
     }
-    if(myBall.y>=height){
+    if(ball.y>=height){
        life--;
        if(life==0){
          status=GAME_LOSE;
@@ -205,7 +205,7 @@ void statusCtrl() {
     case GAME_START:
       status = GAME_RUN;
       break;
-      /*-----------add things here--------*/
+      
     case GAME_PLAYING:
       status = GAME_PAUSE;
       break;   
@@ -214,11 +214,11 @@ void statusCtrl() {
       break;
     case GAME_WIN:
       status = GAME_RUN;
-      //reset();
+    
       break;
     case GAME_LOSE:
       status = GAME_RUN;
-      //reset();
+      
       break;
     }
   }
