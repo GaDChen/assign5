@@ -27,9 +27,9 @@ class Ball{
     ellipse(x,y,size,size);
   }
   
-  Ball(int myBallX,int myBallY){
-    x = myBallX;
-    y = myBallY;
+  Ball(int ballX,int ballY){
+    x = ballX;
+    y = ballY;
     xSpeed = 5;
     ySpeed = 3;
     size = 20;
